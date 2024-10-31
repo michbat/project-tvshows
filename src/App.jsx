@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { BACKDROP_BASE_URL } from "./config";
 
+
 function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
 
@@ -49,3 +50,6 @@ function App() {
 }
 
 export default App;
+
+
+
