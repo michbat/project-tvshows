@@ -6,6 +6,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { BACKDROP_BASE_URL } from "./config";
 
+// Composants enfants
+
+import { TVShowDetail } from "./assets/components/TvShowDetail/TVShowDetail";
 
 function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
@@ -22,7 +25,6 @@ function App() {
     fetchPopulars();
   }, []);
 
-  console.log(currentTVShow);
   return (
     <div
       className={s.main_container}
@@ -43,13 +45,12 @@ function App() {
           </div>
         </div>
       </div>
-      <div className={s.tv_show_details}>Details</div>
+      <div className={s.tv_show_details}>
+        {currentTVShow && <TVShowDetail tvShow={currentTVShow} />}
+      </div>
       <div className={s.recommandetions}>Recommendations</div>
     </div>
   );
 }
 
 export default App;
-
-
-
