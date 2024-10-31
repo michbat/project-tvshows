@@ -2,6 +2,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import s from "./style.module.css";
 import "./App.css";
 import { TVShowAPI } from "./api/tv-show";
+import { TVShowListItem } from "./components/TvShowListItem/TVShowListItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import { BACKDROP_BASE_URL } from "./config";
@@ -20,6 +21,10 @@ function App() {
     if (populars.length > 0) {
       setCurrentTVShow(populars[0]);
     }
+  }
+
+  function setCurrentTvShowFromRecommendation(tvShow) {
+    alert(JSON.stringify(tvShow));
   }
 
   // le hook useEffect se lancer au moins une fois (au niveau de chargement dans le DOM du component)
@@ -53,7 +58,24 @@ function App() {
       <div className={s.tv_show_details}>
         {currentTVShow && <TVShowDetail tvShow={currentTVShow} />}
       </div>
-      <div className={s.recommandetions}>Recommendations</div>
+      <div className={s.recommended_shows}>
+        {currentTVShow && (
+          <>
+            <TVShowListItem
+              tvShow={currentTVShow}
+              onClickItem={setCurrentTvShowFromRecommendation}
+            />
+            <TVShowListItem
+              tvShow={currentTVShow}
+              onClickItem={setCurrentTvShowFromRecommendation}
+            />
+            <TVShowListItem
+              tvShow={currentTVShow}
+              onClickItem={setCurrentTvShowFromRecommendation}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 }
