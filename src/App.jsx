@@ -2,13 +2,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import s from "./style.module.css";
 import "./App.css";
 import { TVShowAPI } from "./api/tv-show";
-import { TVShowListItem } from "./components/TvShowListItem/TVShowListItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import { BACKDROP_BASE_URL } from "./config";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 import { TVShowDetail } from "./components/TvShowDetail/TVShowDetail";
+import { TVShowList } from "./components/TvShowList/TVShowList";
 
 function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
@@ -43,9 +43,9 @@ function App() {
     }
   }, [currentTVShow]);
 
-  function setCurrentTvShowFromRecommendation(tvShow) {
-    alert(JSON.stringify(tvShow));
-  }
+  // function setCurrentTvShowFromRecommendation(tvShow) {
+  //   alert(JSON.stringify(tvShow));
+  // }
 
   console.log(currentTVShow);
   console.log(recommendationList);
@@ -77,22 +77,7 @@ function App() {
         {currentTVShow && <TVShowDetail tvShow={currentTVShow} />}
       </div>
       <div className={s.recommended_shows}>
-        {currentTVShow && (
-          <>
-            <TVShowListItem
-              tvShow={currentTVShow}
-              onClickItem={setCurrentTvShowFromRecommendation}
-            />
-            <TVShowListItem
-              tvShow={currentTVShow}
-              onClickItem={setCurrentTvShowFromRecommendation}
-            />
-            <TVShowListItem
-              tvShow={currentTVShow}
-              onClickItem={setCurrentTvShowFromRecommendation}
-            />
-          </>
-        )}
+        {recommendationList && recommendationList.length > 0 && <TVShowList tvShowList={recommendationList} />}
       </div>
     </div>
   );
