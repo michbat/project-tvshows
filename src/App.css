@@ -1,9 +1,15 @@
 @import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* @import url("../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"); */
 
-body{
+body {
   color: #fff;
   font-family: Maximum Impact;
-
 }
 
+::-webkit-scrollbar {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: rgba(29, 69, 177, 0.61);
+  border-radius: 10px;
+}
