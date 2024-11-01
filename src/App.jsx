@@ -8,13 +8,11 @@ import { useEffect } from "react";
 import { BACKDROP_BASE_URL } from "./config";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
-
-// Composants enfants
-
 import { TVShowDetail } from "./components/TvShowDetail/TVShowDetail";
 
 function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
+  const [recommendationList, setRecommendationList] = useState([]);
 
   async function fetchPopulars() {
     const populars = await TVShowAPI.fetchPopulars();
@@ -23,14 +21,34 @@ function App() {
     }
   }
 
+  async function fetchRecommendations(tvShowid) {
+    const recommendations = await TVShowAPI.fetchRecommendations(tvShowid);
+    if (recommendations.length > 0) {
+      setRecommendationList(recommendations.slice(0, 10));
+    }
+  }
+
+  // Cette useEffect va se lancer qu'une seule fois ([]) après un premier render (alors currentTvShow est indefined)
+  useEffect(() => {
+    console.log("Je suis le premier");
+    fetchPopulars();
+  }, []);
+
+  // Cette useEffect va se lancer à chaque fois que la propriété currentTVshowChange (ne se lance qu'après le premier render initial)
+
+  useEffect(() => {
+    console.log("Je suis le deuxième");
+    if (currentTVShow) {
+      fetchRecommendations(currentTVShow.id);
+    }
+  }, [currentTVShow]);
+
   function setCurrentTvShowFromRecommendation(tvShow) {
     alert(JSON.stringify(tvShow));
   }
 
-  // le hook useEffect se lancer au moins une fois (au niveau de chargement dans le DOM du component)
-  useEffect(() => {
-    fetchPopulars();
-  }, []);
+  console.log(currentTVShow);
+  console.log(recommendationList);
 
   return (
     <div
