@@ -30,25 +30,16 @@ function App() {
 
   // Cette useEffect va se lancer qu'une seule fois ([]) après un premier render (alors currentTvShow est indefined)
   useEffect(() => {
-    console.log("Je suis le premier");
     fetchPopulars();
   }, []);
 
   // Cette useEffect va se lancer à chaque fois que la propriété currentTVshowChange (ne se lance qu'après le premier render initial)
 
   useEffect(() => {
-    console.log("Je suis le deuxième");
     if (currentTVShow) {
       fetchRecommendations(currentTVShow.id);
     }
   }, [currentTVShow]);
-
-  // function setCurrentTvShowFromRecommendation(tvShow) {
-  //   alert(JSON.stringify(tvShow));
-  // }
-
-  console.log(currentTVShow);
-  console.log(recommendationList);
 
   return (
     <div
@@ -77,7 +68,12 @@ function App() {
         {currentTVShow && <TVShowDetail tvShow={currentTVShow} />}
       </div>
       <div className={s.recommended_shows}>
-        {recommendationList && recommendationList.length > 0 && <TVShowList tvShowList={recommendationList} />}
+        {recommendationList && recommendationList.length > 0 && (
+          <TVShowList
+            tvShowList={recommendationList}
+            onClickItem={setCurrentTVShow}
+          />
+        )}
       </div>
     </div>
   );

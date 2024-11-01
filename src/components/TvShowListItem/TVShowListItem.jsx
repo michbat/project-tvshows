@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { SMALL_IMG_COVER_BASE_URL } from "../../config";
 import s from "./style.module.css";
 
-export function TVShowListItem({ tvShow = {}, onClickItem }) {
+export function TVShowListItem({ tvShow = {}, onClick }) {
   return (
-    <div onClick={()=>onClickItem(tvShow)} className={s.container}>
+    <div onClick={() => onClick(tvShow)} className={s.container}>
       <img
         className={s.img}
         src={`${SMALL_IMG_COVER_BASE_URL}${tvShow.backdrop_path}`}
@@ -18,8 +18,7 @@ export function TVShowListItem({ tvShow = {}, onClickItem }) {
 TVShowListItem.propTypes = {
   tvShow: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    backdrop_path: PropTypes.string.isRequired,
+    // backdrop_path: PropTypes.string.isRequired,
   }).isRequired,
-  onClickItem: PropTypes.func.isRequired
-
+  onClick: PropTypes.func.isRequired,
 };
