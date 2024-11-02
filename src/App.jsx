@@ -9,6 +9,7 @@ import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 import { TVShowDetail } from "./components/TvShowDetail/TVShowDetail";
 import { TVShowList } from "./components/TvShowList/TVShowList";
+import { SearchBar } from "./components/SearchBar/SearchBar";
 
 function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
@@ -25,6 +26,13 @@ function App() {
     const recommendations = await TVShowAPI.fetchRecommendations(tvShowid);
     if (recommendations.length > 0) {
       setRecommendationList(recommendations.slice(0, 10));
+    }
+  }
+
+  async function searchTVShow(tvShowName) {
+    const searchResponses = await TVShowAPI.fetchByTitle(tvShowName);
+    if (searchResponses.length > 0) {
+      setCurrentTVShow(searchResponses[0]);
     }
   }
 
@@ -60,7 +68,7 @@ function App() {
             />
           </div>
           <div className="col-sm-12 col-md-4">
-            <input style={{ width: "100%" }} type="text" />
+            <SearchBar onSubmit={searchTVShow} />
           </div>
         </div>
       </div>
