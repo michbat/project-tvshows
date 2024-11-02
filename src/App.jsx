@@ -16,23 +16,35 @@ function App() {
   const [recommendationList, setRecommendationList] = useState([]);
 
   async function fetchPopulars() {
-    const populars = await TVShowAPI.fetchPopulars();
-    if (populars.length > 0) {
-      setCurrentTVShow(populars[0]);
+    try {
+      const populars = await TVShowAPI.fetchPopulars();
+      if (populars.length > 0) {
+        setCurrentTVShow(populars[0]);
+      }
+    } catch (e) {
+      alert(`Erreur lors de la récupération des shows populaires : ${e.message}`);
     }
   }
 
   async function fetchRecommendations(tvShowid) {
-    const recommendations = await TVShowAPI.fetchRecommendations(tvShowid);
-    if (recommendations.length > 0) {
-      setRecommendationList(recommendations.slice(0, 10));
+    try {
+      const recommendations = await TVShowAPI.fetchRecommendations(tvShowid);
+      if (recommendations.length > 0) {
+        setRecommendationList(recommendations.slice(0, 10));
+      }
+    } catch (e) {
+      alert(`Erreur lors de la récupération des recommandations : ${e.message}`);
     }
   }
 
   async function searchTVShow(tvShowName) {
-    const searchResponses = await TVShowAPI.fetchByTitle(tvShowName);
-    if (searchResponses.length > 0) {
-      setCurrentTVShow(searchResponses[0]);
+    try {
+      const searchResponses = await TVShowAPI.fetchByTitle(tvShowName);
+      if (searchResponses.length > 0) {
+        setCurrentTVShow(searchResponses[0]);
+      }
+    } catch (e) {
+      alert(`Erreur lors de la recherche d'un show particulier : ${e.message}`);
     }
   }
 

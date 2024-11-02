@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 export function SearchBar({ onSubmit }) {
   function submit(e) {
     if (e.key === "Enter" && e.target.value.trim().length !== "") {
-      console.log(e.target.value);
       onSubmit(e.target.value);
     }
   }
